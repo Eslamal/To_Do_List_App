@@ -3,19 +3,34 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="16dp">
-
-    <TextView
-        android:id="@+id/taskTitle"
+    <LinearLayout
+        android:id="@+id/taskContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Task Title"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:orientation="vertical"
+        android:layout_toStartOf="@id/checkbox_select">
 
-    <TextView
-        android:id="@+id/taskDescription"
+        <TextView
+            android:id="@+id/taskTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Task Title"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/taskDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Task Description" />
+
+    </LinearLayout>
+    <CheckBox
+        android:id="@+id/checkbox_select"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/taskTitle"
-        android:text="Task Description" />
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone" />
+
 </RelativeLayout>

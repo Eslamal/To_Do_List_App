@@ -9,7 +9,7 @@ public class Task {
     private String title;
     private String description;
 
-
+    private boolean isSelected = false;
 
     public Task(String title, String description) {
         this.title = title;
@@ -30,6 +30,13 @@ public class Task {
 
     public String getDescription() {
         return description;
+    }
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 
 }

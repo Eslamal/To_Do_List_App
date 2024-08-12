@@ -1,11 +1,14 @@
 package com.example.to_do_list_app;
+
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,6 +21,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     private List<Task> tasks = new ArrayList<>();
     private OnItemLongClickListener longClickListener;
     private OnContextMenuItemClickListener contextMenuListener;
+    private boolean showCheckboxes = false;
 
     @NonNull
     @Override
@@ -31,6 +35,16 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         Task currentTask = tasks.get(position);
         holder.titleTextView.setText(currentTask.getTitle());
         holder.descriptionTextView.setText(currentTask.getDescription());
+        holder.checkBox.setVisibility(showCheckboxes ? View.VISIBLE : View.GONE);
+        holder.checkBox.setChecked(currentTask.isSelected());
+        holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            currentTask.setSelected(isChecked);
+        });
+    }
+
+    public void setShowCheckboxes(boolean showCheckboxes) {
+        this.showCheckboxes = showCheckboxes;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -47,14 +61,20 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         return tasks.get(position);
     }
 
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
     class TaskViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
         private TextView titleTextView;
         private TextView descriptionTextView;
+        private CheckBox checkBox;
 
         public TaskViewHolder(View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.taskTitle);
             descriptionTextView = itemView.findViewById(R.id.taskDescription);
+            checkBox = itemView.findViewById(R.id.checkbox_select);
 
             itemView.setOnCreateContextMenuListener(this);
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
